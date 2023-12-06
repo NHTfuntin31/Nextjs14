@@ -3,7 +3,7 @@ const server = jsonServer.create()
 const router = jsonServer.router('db.json')
 const middlewares = jsonServer.defaults()
 const SERVER_PORT = 8001;
-const DELAY_TIMEOUT = 3000; //unit: milliseconds
+const DELAY_TIMEOUT = 0; //unit: milliseconds
 
 server.use(middlewares)
 

@@ -15,7 +15,7 @@ interface Iprops {
     meta: {
         current: number,
         pageSize: number,
-        total: number	
+        total: number
     }
 }
 
@@ -25,59 +25,59 @@ const UserTable = (props: Iprops) => {
     const { replace } = useRouter();
     const [isFetching, setIsFetching] = useState<boolean>(false)
 
-    const {users, meta} = props;
+    const { users, meta } = props;
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
     const [dataUpdate, setDataUpdate] = useState<any>(null);
 
 
     useEffect(() => {
-        if(users) setIsFetching(false)
+        if (users) setIsFetching(false)
     }, [users])
-      
-    const columns: ColumnsType<IUser> = [
-    {
-        title: 'Id',
-        dataIndex: 'name',
-    },
-    {
-        title: 'Email',
-        dataIndex: 'email',
-    },
-    {
-        title: 'Name',
-        dataIndex: 'name',
-    },
-    {
-        title: 'Actions',
-        align: "center",
-        render: (text, record, index) => {
-            return (
-                <>
-                    <EditTwoTone
-                        twoToneColor="#f57800" style={{ cursor: "pointer", margin: "0 20px" }}
-                        onClick={() => {
-                            setIsUpdateModalOpen(true);
-                            setDataUpdate(record);
-                        }}
-                    />
 
-                    <Popconfirm
-                        placement="leftTop"
-                        title={"Xác nhận xóa user"}
-                        description={"Bạn có chắc chắn muốn xóa user này ?"}
-                        onConfirm={() => handleDeleteUser(record)}
-                        okText="Xác nhận"
-                        cancelText="Hủy"
-                    >
-                        <span style={{ cursor: "pointer" }}>
-                            <DeleteTwoTone twoToneColor="#ff4d4f" />
-                        </span>
-                    </Popconfirm>
-                </>
-            )
+    const columns: ColumnsType<IUser> = [
+        {
+            title: 'Id',
+            dataIndex: 'name',
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+        },
+        {
+            title: 'Name',
+            dataIndex: 'name',
+        },
+        {
+            title: 'Actions',
+            align: "center",
+            render: (text, record, index) => {
+                return (
+                    <>
+                        <EditTwoTone
+                            twoToneColor="#f57800" style={{ cursor: "pointer", margin: "0 20px" }}
+                            onClick={() => {
+                                setIsUpdateModalOpen(true);
+                                setDataUpdate(record);
+                            }}
+                        />
+
+                        <Popconfirm
+                            placement="leftTop"
+                            title={"Xác nhận xóa user"}
+                            description={"Bạn có chắc chắn muốn xóa user này ?"}
+                            onConfirm={() => handleDeleteUser(record)}
+                            okText="Xác nhận"
+                            cancelText="Hủy"
+                        >
+                            <span style={{ cursor: "pointer" }}>
+                                <DeleteTwoTone twoToneColor="#ff4d4f" />
+                            </span>
+                        </Popconfirm>
+                    </>
+                )
+            }
         }
-    }
     ];
 
     const handleDeleteUser = async (user: any) => {
@@ -101,31 +101,31 @@ const UserTable = (props: Iprops) => {
 
 
     const onChange = (pagination: any, filters: any, sorter: any, extra: any) => {
-        if(pagination && pagination.current){
+        if (pagination && pagination.current) {
             const params = new URLSearchParams(searchParams);
             params.set('page', pagination.current);
             replace(`${pathname}?${params.toString()}`);
             setIsFetching(true)
         }
     }
-      
-    return(
+
+    return (
         <div>
             <Table
-            title={renderHeader}
-            loading={isFetching}
-            rowKey={"id"}
-            bordered
-            dataSource={users} columns={columns}
-            onChange={onChange}
-            pagination={
-                {
-                    ...meta,
-                    showTotal: (total, range) => {
-                        return(<div> {range[0]}-{range[1]} on {total} rows </div>)
+                title={renderHeader}
+                loading={isFetching}
+                rowKey={"id"}
+                bordered
+                dataSource={users} columns={columns}
+                onChange={onChange}
+                pagination={
+                    {
+                        ...meta,
+                        showTotal: (total, range) => {
+                            return (<div> {range[0]}-{range[1]} on {total} rows </div>)
+                        }
                     }
                 }
-            }
             />
             <CreateUser
                 isCreateModalOpen={isCreateModalOpen}

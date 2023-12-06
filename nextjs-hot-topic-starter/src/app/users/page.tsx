@@ -9,7 +9,8 @@ const UserPage = async (props: any) => {
 	const page = props?.searchParams?.page ?? 1;
 	const res = await fetch(`http://localhost:8001/users?_page=${page}&_limit=${LIMIT}`, {
 		method: "GET",
-		next: {tags: ['list-user']}
+		next: {tags: ['list-users']}
+		// cache: 'no-store'
 	})
 
 	const total_items = +(res.headers?.get("X-Total-Count") ?? 0)
