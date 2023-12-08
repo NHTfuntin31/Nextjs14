@@ -2,14 +2,14 @@
 
 import { useState } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { useRouter } from
-	'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import Loading from '@/app/loading'
 import * as z from 'zod'
 import type { Database } from '@/types/supabase'
+import { createClient } from '@/utils/supabase/client'
 type Schema = z.infer<typeof schema>
 
 const schema = z.object({
@@ -53,9 +53,11 @@ const Signup = () => {
 
 			const { error: updateError } = await supabase
 			.from('profiles')
-			.update({name: data.name})
+			.update({ name: data.name })
 			.eq('email', data.email)
-
+			.select()
+			console.log(data.name);
+			
 			if (updateError) {
 				setMessage('エラーが発生しました。' + updateError.message)
 				return
@@ -64,7 +66,6 @@ const Signup = () => {
 			reset()
 			setMessage('メール送信済み')
 
-			router.push('/')
 		} catch (error) {
 			setMessage('エラーが発生しました。' + error)
 			return
