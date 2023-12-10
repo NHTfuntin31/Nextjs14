@@ -74,7 +74,7 @@ const Profile = () => {
 	}, [])
 
 	const onSubmit: SubmitHandler<Schema> = async (data) => {
-
+		
 	}
 
 	return (
@@ -93,16 +93,44 @@ const Profile = () => {
 				</div>
 
 				<div className="mb-5">
-	
 					<div className="text-sm mb-1 font-bold">名前</div>
 					<input 
-						type="text" id="avatar" onChange={onUploadImage}/>
-					{fileMessage && <div className="text-center text-red-500 my-5">{fileMessage}</div>}
-
+						type="text"
+						className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+						placeholder="name"
+						id="name"
+						{...register('name')}
+						required
+						/>
+						<div className="my-3 text-center text-sm text-red-500">{errors.name?.message}</div>
 				</div>
 
-			</form>
+				<div className="mb-5">
+					<div className="text-sm mb-1 font-bold">自己紹介</div>
+					<textarea 
+						className="border rounded-md w-full py-2 px-3 focus:outline-none focus:border-sky-500"
+						placeholder="自己紹介"
+						id="introduce"
+						{...register('introduce')}
+						rows={5}
+						/>
+						<div className="my-3 text-center text-sm text-red-500">{errors.name?.message}</div>
+				</div>
 
+
+				<div className="mb-5">
+					{loading ? (
+						<Loading />
+					):(
+						<button
+							type="submit"
+							className="font-bold bg-sky-500 hover:brightness-95 w-full rounded-full p-2 text-white text-sm"
+						>変更</button>
+					)
+					}
+				</div>
+			</form>
+					{message && <div className="my-5 text-center text-red-500 mb-5">{message}</div>}
 		</div>
 	)
 }
