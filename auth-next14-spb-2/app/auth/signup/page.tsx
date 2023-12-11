@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
 import type { Database } from "@/types/supabase";
-import Signup from "@/app/login/signup";
+import Signup from "@/app/components/signup";
 
 const SignupPage =async () => {
 	const supabase = createServerComponentClient<Database>({
