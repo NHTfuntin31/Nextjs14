@@ -1,10 +1,11 @@
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
-import Login from "@/app/components/login";
+import Logout from '@/app/components/logout'
+
 import type { Database } from "@/types/supabase";
 
-const LoginPage =async () => {
+const LogoutPage = async () => {
 	const supabase = createServerComponentClient<Database>({
 		cookies,
 	})
@@ -13,11 +14,11 @@ const LoginPage =async () => {
 		data: { session }
 	} = await supabase.auth.getSession()
 
-	if (session) {
-		redirect('/')
+	if (!session) {
+		redirect('/auth/login')
 	}
 
-	return <Login />
+	return <Logout />
 }
 
-export default LoginPage
+export default LogoutPage

@@ -35,7 +35,14 @@ const Navigation = ({session, profile}:{session: Session | null, profile: Profil
 					{session ? (
 						<div className="flex items-center space-x-5">
 							<Link href="/settings/profile">
-								<div>プロファイル</div>
+								<div className="relative w-10 h-10">
+									<Image
+										src={profile && profile.avatar_url ? profile.avatar_url : '/noavatar.png'}
+										className="rounded-full object-cover"
+										alt="avatar"
+										fill
+									/>
+								</div>
 							</Link>
 						</div>
 					) : (
